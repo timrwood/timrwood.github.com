@@ -1,0 +1,14 @@
+---
+layout: default
+title: Things Made
+body_class: page-home
+---
+
+<div class="posts">
+    {% for post in site.posts %}
+        <a href="{{ post.url }}" class="post-link">
+            <h2 class="post-title"><span>{{ post.title }}</span></h2>
+            <figure class="post-figure" style="background-image:url({{ post.image }});{%if post.bg_size %}background-size:{{post.bg_size}}{% endif %}"></figure>
+        </a>
+    {% endfor %}
+</div>

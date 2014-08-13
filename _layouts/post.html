@@ -1,0 +1,17 @@
+---
+layout: default
+body_class: page-post
+---
+
+<h2 class="post-title"><span>{{ page.title }}</span></h2>
+{% comment %}
+<figure class="post-figure post-figure-short" style="background-image:url({{ page.image }})"></figure>
+{% endcomment %}
+
+<div class="post">{{ content }}</div>
+
+{% if page.previous %}
+    <a class="next" href="{{ page.previous.url}}" style="background-image:url({{ page.previous.image }});{%if page.previous.bg_size %}background-size:{{page.previous.bg_size}}{% endif %}">
+        <h3>Next Project: {{ page.previous.title }}</h3>
+    </a>
+{% endif %}

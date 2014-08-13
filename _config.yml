@@ -1,0 +1,7 @@
+name: Tim Wood
+description: These are things I made.
+twitter: timtamiam
+github: timrwood
+markdown: redcarpet
+highlighter: pygments
+permalink: /:categories/:title/

@@ -1,0 +1,74 @@
+html {
+  background: #002B36;
+  font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
+}
+
+a {
+  position: fixed;
+  bottom: 1em;
+  left: 1em;
+  color: #586E75;
+  font-size: 60%;
+}
+
+#stage {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  overflow: hidden;
+}
+
+b {
+  clear: both;
+  padding-top: 1.5em;
+  line-height: 1.5em;
+  font-weight: normal;
+  color: #FBF4E1;
+  text-align: center;
+  display: block;
+  white-space: pre;
+}
+
+i {
+  line-height: 1.5em;
+  height: 1.5em;
+  width: 1.5em;
+  float: left;
+  text-align: center;
+  display: block;
+  background: #FBF4E1;
+  font-style: normal;
+}
+
+.c-door, .c-wall, .c-counter {
+  background: #002B36;
+}
+
+.c-key, .c-door {
+  color: #859900;
+}
+
+.c-wall {
+  color: #002B36;
+}
+
+.c-enemy {
+  color: #DC322F;
+}
+
+.c-hero, .c-exit {
+  color: #268BD2;
+}
+
+.c-portal {
+  color: #B58900;
+  font-weight: bold;
+}
+
+.c-laser {
+  color: #DC322F;
+}
+
+.c-counter {
+  color: #FDF6E3;
+}

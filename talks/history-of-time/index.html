@@ -1,0 +1,1176 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>A History of Time</title>
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/night.css">
+		<script src="js/moment.js"></script>
+		<script src="js/moment-timezone.js"></script>
+	</head>
+
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<p>&nbsp;</p>
+					<br/><br/>
+					<h2>A History of Time</h2>
+					<div class="fragment">
+						<p>-or-</p>
+						<h3>Why JavaScript Dates are a Mess</h3>
+					</div>
+				</section>
+
+				<section>
+					<!-- <section> -->
+					<!-- 	<h2>Intro</h2> -->
+					<!-- </section> -->
+					<section>
+						<!-- <img src="img/avatar.png" /> -->
+						<img src="img/moment.png" style="border:0;" /><img src="img/moment-timezone.png" style="border:0;" />
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Representing Time</h2>
+					</section>
+					<section>
+						<h3>The Past</h3>
+						<p class="fragment">When did this talk start?</p>
+					</section>
+					<section>
+						<h3>The Past</h3>
+						<p>When was Labor Day?</p>
+					</section>
+					<section>
+						<h3>The Past</h3>
+						<p>When did Rome fall?</p>
+					</section>
+					<section>
+						<h3>The Future</h3>
+						<p class="fragment">When are we meeting for lunch?</p>
+					</section>
+					<section>
+						<h3>The Future</h3>
+						<p>When the bus will arrive?</p>
+					</section>
+					<section>
+						<h3>The Future</h3>
+						<p>When will Ember Data 1.0 be released?</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>How do I describe<br/>a point in time?</h2>
+					</section>
+					<section>
+						<h3>A number</h3>
+						<code id="js-point-in-time-number"></code>
+						<br/>
+						<br/>
+						<div class="fragment">
+							<h3>A group of numbers</h3>
+							<code id="js-point-in-time-numbers"></code>
+						</div>
+						<script>
+							setInterval(function(){
+									var number  = document.getElementById("js-point-in-time-number");
+									var numbers = document.getElementById("js-point-in-time-numbers");
+									var now = new Date();
+									number.textContent = +now;
+									numbers.textContent = '[' + [
+									now.getFullYear(),
+									now.getMonth() + 1,
+									now.getDate(),
+									now.getHours(),
+									now.getMinutes(),
+									now.getSeconds(),
+									now.getMilliseconds()
+									].join(', ') + ']';
+									}, 60);
+						</script>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>A Number</h2>
+					</section>
+					<section>
+						<h3>Unix Epoch</h3>
+						<p class="fragment">January 1, 1970 UTC</p>
+					</section>
+					<section>
+						<h3>Unix Timestamp</h3>
+						<div class="fragment">
+							<p>Seconds since Unix Epoch</p>
+							<code id="js-a-number-unix-seconds"></code>
+						</div>
+						<br/><br/>
+						<div class="fragment">
+							<h3>JavaScript Timestamp</h3>
+							<p>Milliseconds since Unix Epoch</p>
+							<code id="js-a-number-unix-milliseconds"></code>
+						</div>
+						<script>
+							setInterval(function(){
+									var a = document.getElementById("js-a-number-unix-seconds");
+									var b = document.getElementById("js-a-number-unix-milliseconds");
+									var now = new Date();
+									a.textContent = Math.floor(now / 1000);
+									b.textContent = +now;
+									}, 60);
+						</script>
+					</section>
+					<section>
+						<h3>Unix Timestamp</h3>
+						<p>Does not include leap seconds</p>
+						<br/><br/>
+						<div class="fragment">
+							<p>Last leap second was June 30, 2012</p>
+							<code>
+								11:59:59 PM = 1341100799<br/>
+								11:59:60 PM = 1341100800<br/>
+								12:00:00 AM = 1341100800<br/>
+								12:00:01 AM = 1341100801<br/>
+							</code>
+						</div>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Other Numbers</h2>
+					</section>
+					<section>
+						<h2>Unix is not the only Epoch</h2>
+						<ul>
+							<li class="fragment">Jan  1 2001 - iOS, OSX, Objective-C</li>
+							<li class="fragment">Jan  1 2000 - PostgreSQL</li>
+							<li class="fragment">Jan  6 1980 - Qualcomm BREW, GPS, ATSC</li>
+							<li class="fragment">Jan  1 1980 - BIOS, DOS</li>
+							<li class="fragment">Jan  1 1978 - AmigaOS</li>
+							<li class="fragment">Jan  1 1960 - S-Plus, SAS</li>
+							<li class="fragment">Jan  1 1950 - SEGA Dreamcast, Sintran_III FS</li>
+							<li class="fragment">Jan  1 1904 - LabView, Mac OS, Palm OS</li>
+							<li class="fragment">Jan  1 1901 - Ada</li>
+							<li class="fragment">Jan  1 1900 - x/OS, CICS, Common Lisp, Delphi, SQL, Mathematica, NTP</li>
+							<li class="fragment">Jan  0 1900 - Excel, Lotus 1-2-3</li>
+							<li class="fragment">Dec 30 1899 - Microsoft COM DATE, Object Pascal, LibreOffice Calc</li>
+							<li class="fragment">Nov 17 1858 - OpenVMS, Haskell</li>
+							<li class="fragment">Dec 31 1840 - MUMPS</li>
+							<li class="fragment">Dec 28 1800 - Clarion</li>
+							<li class="fragment">Jan  1 1753 - SQL</li>
+							<li class="fragment">Jan  1 1601 - Windows, COBOL</li>
+							<li class="fragment">Jan  1 0001 - C#, Go, RPG, Windows PowerShell, VB .NET</li>
+							<li class="fragment">Jan  0 0000 - Matlab</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Milliseconds and seconds are not the only resolution</h2>
+						<ul>
+							<li class="fragment">1 ns - Unix, Posix, C++11, Go</li>
+							<li class="fragment">100 ns - Windows, OpenVMS, Ada, C#, Windows PowerShell, Visual Basic .NET</li>
+							<li class="fragment">1 μs - Unix, Posix, Emacs Lisp, FORTRAN, OCaml, Perl, PHP, Python, RPG, Puby</li>
+							<li class="fragment">1 ms - Android, Windows, CICS, Delphi, Java, JavaScript, iOS, OSX</li>
+							<li class="fragment">3 ms - SQL</li>
+							<li class="fragment">10 ms - DOS, Turbo Pascal</li>
+							<li class="fragment">54.931 ms - BIOS</li>
+							<li class="fragment">1 s - BIOS, Unix, Posix, BASIC, C++, COBOL, Common Lisp, Matlab, MUMPS, OCaml, Extended Pascal, Perl, PHP, RPG</li>
+							<li class="fragment">1 m - SQL</li>
+							<li class="fragment">1 d - BIOS</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Relative Time</h2>
+						<p class="fragment">a minute ago, 3 hours ago, 1 year ago</p>
+						<p class="fragment">1s, 20m, 3d</p>
+						<br/>
+						<p class="fragment">Low precision timestamp.</p>
+						<p class="fragment">The epoch is the current time.</p>
+						<p class="fragment">Uses an exponential scale.</p>
+					</section>
+				</section>
+
+				<section>
+					<h2>Biggest Problem with Timestamps</h2>
+					<h3 class="fragment"><code>945676882673 1297670498267 978076872536 1419926483721 635500892021 1413339613875</code></h3>
+					<p class="fragment">Which are in 2012?</p>
+					<p class="fragment">Which are in February?</p>
+					<p class="fragment">Which one was today?</p>
+				</section>
+
+				<!-- <section> -->
+				<!-- 	<h2>Conclusion:</h2> -->
+				<!-- 	<p>Less than Ideal</p> -->
+				<!-- </section> -->
+
+				<section>
+					<section>
+						<h2>A Group of Numbers</h2>
+					</section>
+					<section>
+						<p>Year + Month + Day</p>
+						<code id="js-a-group-ymd"></code>
+						<br/><br/>
+						<div class="fragment">
+							<p>Year + Week + Day</p>
+							<code id="js-a-group-ywd"></code>
+							<br/><br/>
+						</div>
+						<div class="fragment">
+							<p>Year + Day</p>
+							<code id="js-a-group-yd"></code>
+						</div>
+					</section>
+					<section>
+						<h2>Contextual Clues</h2>
+					</section>
+					<section>
+						<h2>
+						<code id="js-a-group-hms"></code>
+						<br/><br/>
+						<code id="js-a-group-mdy"></code> <br/>
+					</h2>
+					</section>
+					<script>
+						setInterval(function(){
+								var a = document.getElementById("js-a-group-ymd");
+								var b = document.getElementById("js-a-group-ywd");
+								var c = document.getElementById("js-a-group-yd");
+								var d = document.getElementById("js-a-group-hms");
+								var e = document.getElementById("js-a-group-mdy");
+								a.textContent = '[' + moment().format("YYYY, M, D, H, m, s, SSS") + ']';
+								b.textContent = '[' + moment().format("YYYY, W, E, H, m, s, SSS") + ']';
+								c.textContent = '[' + moment().format("YYYY, DDD, H, m, s, SSS") + ']';
+								d.textContent = moment().format("HH:mm:ss");
+								e.textContent = moment().format("MM/DD/YY");
+								}, 60);
+					</script>
+				</section>
+
+				<section>
+					<h2>Units of Time</h2>
+				</section>
+
+				<section>
+					<section>
+						<h2>Years</h2>
+					</section>
+					<section>
+						<h3>Year Definitions</h3>
+						<br/>
+						<div class="fragment">
+							<h4>Common Year - 365 Days</h4>
+						</div>
+						<br/>
+						<div class="fragment">
+							<h4>Leap Year - 366 Days</h4>
+						</div>
+						<br/>
+						<div class="fragment">
+							<h4>Julian Year - 365.25 Days</h4>
+						</div>
+						<br/>
+						<div class="fragment">
+							<h4>Gregorian Year - 365.2425 Days</h4>
+						</div>
+						<br/>
+						<div class="fragment">
+							<h4>Tropical Year - 365.24219 Days</h4>
+						</div>
+					</section>
+					<section>
+						<h3>Year Zero</h3>
+						<p class="fragment">Does not exist</p>
+						<br/>
+						<p class="fragment"><code>
+								BC | AD<br/>
+								5 4 3 2 1 | 1 2 3 4 5<br/>
+						</code></p>
+						<br/>
+						<p class="fragment">The concept of zero did not exist until the 9th century AD.</p>
+						<br/>
+						<p class="fragment"><code>100AD - 200 = 101BC</code></p>
+					</section>
+					<!-- <section> -->
+					<!-- 	<h2>Conclusion:</h2> -->
+					<!-- 	<p>Years are a mess.</p> -->
+					<!-- </section> -->
+				</section>
+
+				<section>
+					<section>
+						<h2>Year + Month + Day</h2>
+					</section>
+					<section>
+						<h3>Based on Celestial Bodies</h3>
+					</section>
+					<section>
+						<p><b>Solar year</b> - Earth around the sun.</p>
+						<p class="fragment"><b>Lunar month</b> - Moon around the earth.</p>
+						<p class="fragment"><b>Day</b> - Earth around itself.</p>
+					</section>
+					<section>
+						<p>1 solar year is 365.24219 days</p>
+						<p class="fragment">1 lunar month is 29.5305 days</p>
+						<p class="fragment">1 solar year is 12.3683 lunar months</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>04-05-06</h2>
+						<p class="fragment">What day is this?</p>
+						<br/>
+						<p class="fragment">A: 2004 May 6</p>
+						<p class="fragment">B: 4 May 2006</p>
+						<p class="fragment">C: April 5, 2006</p>
+					</section>
+					<section>
+						<h2>04-05-06</h2>
+						<p>A: 2004 May 6</p>
+						<br/>
+						<p class="fragment">
+							Albania, Bangladesh, Basque Country, Canada, China, People's Republic of, Denmark, Germany, Hong Kong, Hungary, Iran, Japan, Kenya, Korea, Latvia, Lithuania, Macau, Mongolia, Myanmar, Nepal, Singapore, Slovenia, South Africa, Sri Lanka, Sweden, Taiwan, Republic of China, United Kingdom
+						</p>
+					</section>
+					<section>
+						<h2>04-05-06</h2>
+						<p>B: 4 May 2006</p>
+						<br/>
+						<small class="fragment">
+							Albania, Algeria, Argentina, Armenia, Australia, Austria, Bahrain, Bangladesh, Barbados, Belarus, Belgium, Bolivia, Bosnia and Herzegovina, Brazil, Bulgaria, Canada, Chile, Colombia, Costa Rica, Croatia, Cyprus, Czech Republic, Denmark, Dominica, Dominican Republic, Ecuador, Egypt, El Salvador, Estonia, Finland, France, Georgia, Germany, Greece, Greenland, Grenada, Guatemala, Guyana, Honduras, Hong Kong, Iceland, India, Indonesia, Iran, Iraq, Ireland, Israel, Italy, Jamaica, Jordan, Kazakhstan, Kenya, Kuwait, Kyrgyzstan, Latvia, Lebanon, Libya, Luxembourg, Macau, Macedonia, Malaysia, Malta, Mexico, Moldova, Montenegro, Morocco, Myanmar, Nepal, Netherlands, New Zealand, Nicaragua, Nigeria, Norway, Oman, Pakistan, Panama, Paraguay, Peru, Philippines, Poland, Portugal, Qatar, Romania, Russia, Saint Kitts and Nevis, Saint Lucia, Saint Vincent and the Grenadines, Saudi Arabia, Serbia, Singapore, Slovakia, Slovenia, South Africa, Spain, Sri Lanka, Sudan, Suriname, Sweden, Switzerland, Syria, Tajikistan, Thailand, Trinidad and Tobago, Tunisia, Turkey, Turkmenistan, Ukraine, United Arab Emirates, United Kingdom, Uruguay, Uzbekistan, Venezuela, Vietnam, Yemen, Zimbabwe
+						</small>
+					</section>
+					<section>
+						<h2>04-05-06</h2>
+						<p>C: April 5, 2006</p>
+						<br/>
+						<p class="fragment">
+							Azerbaijan, Belize, Canada, Kenya,<br/>Micronesia, Palau, Philippines,<br/>United States of America
+						</p>
+					</section>
+					<section>
+						<h2>04-05-06</h2>
+						<p>All three?</p>
+						<br/>
+						<p class="fragment">
+							Canada, Eh?
+						</p>
+					</section>
+					<!-- <section> -->
+					<!-- 	<h2>Conclusion:</h2> -->
+					<!-- 	<p>The Year, Month, Day combo is a mess.</p> -->
+					<!-- </section> -->
+				</section>
+
+				<section>
+					<section>
+						<h2>Months</h2>
+					</section>
+					<section>
+						<h2>Month Name Origins</h2>
+						<ul>
+							<li class="fragment">January - Janus. Roman god of doors</li>
+							<li class="fragment">February - Februare. Latin: to purify</li>
+							<li class="fragment">March - Mars. Roman god of war</li>
+							<li class="fragment">April - Aprilis. Latin: to bloom</li>
+							<li class="fragment">May - Maia. Roman goddess</li>
+							<li class="fragment">June - Juno. Roman goddess</li>
+							<li class="fragment">July - Julius Caesar</li>
+							<li class="fragment">August - Augustus Caesar</li>
+							<li class="fragment">September - 7th month</li>
+							<li class="fragment">October - 8th month</li>
+							<li class="fragment">November - 9th month</li>
+							<li class="fragment">December - 10th month</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Food for Thought</h2>
+						<br/>
+						<p class="fragment">Sept<b style="padding-left:0.2em">ember</b> means 7th month</p>
+						<p class="fragment">Nov<b style="padding-left:0.2em">ember</b> means 9th month</p>
+						<p class="fragment">Dec<b style="padding-left:0.2em">ember</b> means 10th month</p>
+						<br/>
+						<p class="fragment">Months that use <b>Ember</b> are wrong.</p>
+						<br/>
+						<p class="fragment">Coincidence?</p>
+					</section>
+					<section>
+						<h2>Sacrobosco's Theory</h2>
+						<h3>Month Lengths</h3>
+					</section>
+					<section>
+						<p>Julius Ceaser introduced the Julian calendar.</p>
+						<br/>
+						<table style="margin:0 auto;" class="fragment">
+							<tr>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+								<td style="text-decoration:underline;">31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td>30</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>29</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>&nbsp;</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+						<br/>
+						<p class="fragment">After he died, the Romans named July after him.</p>
+					</section>
+					<section>
+						<p>Later, Augustus Ceaser named a month after himself.</p>
+						<br/>
+						<table style="margin:0 auto;">
+							<tr>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td style="text-decoration:underline;">30</td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td>30</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>29</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>&nbsp;</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+						<br/>
+						<p class="fragment">He didn't want to have fewer days than Julius.</p>
+					</section>
+					<section>
+						<p>So he stole a day from February.</p>
+						<br/>
+						<table style="margin:0 auto;">
+							<tr>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+								<td style="text-decoration:underline;">31</td>
+								<td></td>
+								<td>31</td>
+								<td></td>
+								<td>31</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+								<td>30</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>29</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>28</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+						<br/>
+						<p>&nbsp;</p>
+					</section>
+					<section>
+						<h2>Sacrobosco's Theory</h2>
+						<p class="fragment">Not actually true.</p>
+						<!-- <br/> -->
+						<!-- <p class="fragment">The Julian calendar originally had 31 days in July and August.</p> -->
+						<!-- <p class="fragment">The people named August after him because many significant events in his reign fell in that month.</p> -->
+					</section>
+					<section>
+						<img src="img/believe.jpg" height="400" />
+					</section>
+					<!-- <section> -->
+					<!-- 	<h2>Conclusion:</h2> -->
+					<!-- 	<p>Months are a mess.</p> -->
+					<!-- </section> -->
+				</section>
+
+				<!--
+				<section>
+					<section>
+						<h2>Weeks</h2>
+					</section>
+					<section>
+						<h3>7 Day Week</h3>
+						<p>Originated with the Babylonian "holy days"<br/> and the Hebrew creation account</p>
+					</section>
+					<section>
+						<h3>Babylonian Holy Days</h3>
+						<code>
+							<span style="color:green">&nbsp;1</span> &nbsp;2 &nbsp;3 &nbsp;4 &nbsp;5 &nbsp;6 <span style="color:yellow">&nbsp;7</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+							&nbsp;8 &nbsp;9 10 11 12 13 <span style="color:yellow">14</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+							15 16 17 18 <span style="color:cyan">19</span> 20 <span style="color:yellow">21</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+							22 23 24 25 26 27 <span style="color:yellow">28</span> <span style="color:magenta">29 30</span>
+						</code>
+						<br/><br/>
+						<p class="fragment">4 seven-day weeks starting at the <span style="color:green">new moon</span></p>
+						<p class="fragment">A <span style="color:magenta">couple extra days</span> to re-align with the moon.</p>
+						<p class="fragment">A holy day each <span style="color:yellow">seventh day</span></p>
+						<p class="fragment">Another holy day on the <span style="color:cyan">19th</span><br/>the end of the 7th week of the previous month.</p>
+					</section>
+					<section>
+						<h3>No longer used</h3>
+						<p class="fragment">Instead, an unbroken 7 day week</p>
+						<p class="fragment">1 week == 7 days</p>
+						<p class="fragment">Does not need to align with the moon.</p>
+					</section>
+					<section>
+						<section>
+							<p>1 solar year is 365.24219 days</p>
+							<p class="fragment">1 lunar month is 29.5305 days</p>
+							<p class="fragment">1 solar year is 12.3683 lunar months</p>
+							<p class="fragment">1 week is 7 days</p>
+							<p class="fragment">1 lunar month is 4.2186 weeks</p>
+							<p class="fragment">1 solar year is 52.1774 weeks</p>
+						</section>
+					</section>
+					<section>
+						<h2>Conclusion:</h2>
+						<p>Our weeks are less messy than Babylon's.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Year + Week + Day</h2>
+						<code id="js-year-week-day"></code>
+						<script>
+							document.getElementById("js-year-week-day").innerText = moment().format("GGGG-[W]WW-E");
+						</script>
+					</section>
+					<section>
+						<h2>Quiz Time</h2>
+						<p class="fragment">Is Saturday, January 7 in week 1 or week 2?</p>
+						<p class="fragment">Is Sunday, January 7 in week 1 or week 2?</p>
+						<p class="fragment">Is Sunday, December 31 in week 52 or week 1?</p>
+					</section>
+					<section>
+						<h2>Depends on your Country</h2>
+						<style>
+							#table-week-day td, #table-week-day th {text-align:center;padding:0 1em;}
+							#table-week-day td:first-child, #table-week-day th:first-child {text-align:right;}
+							#table-week-day td:last-child, #table-week-day th:last-child {text-align:left;}
+						</style>
+						<table style="margin:0 auto;text-align:center;" class="fragment" id="table-week-day">
+							<tr>
+								<th>Countries</th>
+								<th>Weeks start on</th>
+								<th>First week contains</th>
+							</tr>
+							<tr class="fragment">
+								<td>~60</td>
+								<td>Monday</td>
+								<td>Jan 1</td>
+							</tr>
+							<tr class="fragment">
+								<td>Hungary</td>
+								<td>Wednesday</td>
+								<td>Jan 1</td>
+							</tr>
+							<tr class="fragment">
+								<td>~15 (Middle East)</td>
+								<td>Saturday</td>
+								<td>Jan 1</td>
+							</tr>
+							<tr class="fragment">
+								<td>~40 (USA)</td>
+								<td>Sunday</td>
+								<td>Jan 1</td>
+							</tr>
+							<tr class="fragment">
+								<td>~35 (EU) + ISO-8601</td>
+								<td>Monday</td>
+								<td>Jan 4</td>
+							</tr>
+							<tr class="fragment">
+								<td>Estonia &amp; Pakistan</td>
+								<td>Monday</td>
+								<td>Jan 7</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h3>Week 1 in the USA</h3>
+						<code>
+							&nbsp;&nbsp;&nbsp;&nbsp; SU MO TU WE TH FR SA<br/>
+							2012 <span style="color:green">&nbsp;1</span> &nbsp;2 &nbsp;3 &nbsp;4 &nbsp;5 &nbsp;6 &nbsp;7<br/>
+							2007 31 <span style="color:green">&nbsp;1</span> &nbsp;2 &nbsp;3 &nbsp;4 &nbsp;5 &nbsp;6<br/>
+							2013 30 31 <span style="color:green">&nbsp;1</span> &nbsp;2 &nbsp;3 &nbsp;4 &nbsp;5<br/>
+							2014 29 30 31 <span style="color:green">&nbsp;1</span> &nbsp;2 &nbsp;3 &nbsp;4<br/>
+							2009 28 29 30 31 <span style="color:green">&nbsp;1</span> &nbsp;2 &nbsp;3<br/>
+							2010 27 28 29 30 31 <span style="color:green">&nbsp;1</span> &nbsp;2<br/>
+							2011 26 27 28 29 30 31 <span style="color:green">&nbsp;1</span><br/>
+						</code>
+					</section>
+					<section>
+						<h3>Week 1 in ISO 8601</h3>
+						<code>
+							&nbsp;&nbsp;&nbsp;&nbsp; MO TU WE TH FR SA SU<br/>
+							2010 <span style="color:green">&nbsp;4</span> &nbsp;5 &nbsp;6 &nbsp;7 &nbsp;8 &nbsp;9 10<br/>
+							2011 &nbsp;3 <span style="color:green">&nbsp;4</span> &nbsp;5 &nbsp;6 &nbsp;7 &nbsp;8 &nbsp;9<br/>
+							2012 &nbsp;2 &nbsp;3 <span style="color:green">&nbsp;4</span> &nbsp;5 &nbsp;6 &nbsp;7 &nbsp;8<br/>
+							2007 &nbsp;1 &nbsp;2 &nbsp;3 <span style="color:green">&nbsp;4</span> &nbsp;5 &nbsp;6 &nbsp;7<br/>
+							2013 31 &nbsp;1 &nbsp;2 &nbsp;3 <span style="color:green">&nbsp;4</span> &nbsp;5 &nbsp;6<br/>
+							2014 30 31 &nbsp;1 &nbsp;2 &nbsp;3 <span style="color:green">&nbsp;4</span> &nbsp;5<br/>
+							2009 29 30 31 &nbsp;1 &nbsp;2 &nbsp;3 <span style="color:green">&nbsp;4</span><br/>
+						</code>
+					</section>
+					<section>
+						<h2>Conclusion:</h2>
+						<p>Weeks and years are a mess.</p>
+					</section>
+				</section>
+				-->
+
+				<section>
+					<section>
+						<h2>Hours</h2>
+					</section>
+					<section>
+						<h2>24 Hour Clock</h2>
+						<p class="fragment">Military Time</p>
+						<p class="fragment">0 to 23</p>
+						<p class="fragment">24 used as 0 of the next day.</p>
+					</section>
+					<section>
+						<!-- <h2>A Kinda Okay System<span class="fragment">&trade;</span></h2> -->
+						<!-- <br/> -->
+						<p><code>&nbsp;&nbsp; &nbsp; &nbsp; Hours &nbsp; 0..23&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code></p>
+						<p class="fragment"><code>&nbsp;&nbsp; &nbsp; Minutes &nbsp; 0..59&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code></p>
+						<p class="fragment"><code>&nbsp;&nbsp; &nbsp; Seconds &nbsp; 0..59&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code></p>
+						<p class="fragment"><code>Milliseconds &nbsp; 0..999&nbsp;&nbsp;&nbsp;&nbsp;</code></p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>12 Hour Clock</h2>
+					</section>
+					<section>
+						<h3>My fanfic 12 hour clock origin story</h3>
+					</section>
+					<section>
+						<h4>Marketing:</h4>
+						<h3 class="fragment">Let's disrupt the clock industry.<br/><br/>Half the hours, double the time.</h3>
+						<br/>
+						<h4 class="fragment">Engineering:</h4>
+						<h3 class="fragment">I don't even know what that means.</h3>
+					</section>
+					<section>
+						<h4>Marketing:</h4>
+						<h3 class="fragment">Instead of hours going from 0 to 23,<br/>they go from 0 to 11 then 0 to 11 again.</h3>
+						<h3 class="fragment">#halfthehoursdoublethetime</h3>
+						<br/>
+						<h4 class="fragment">Engineering:</h4>
+						<h3 class="fragment">How would we tell the two apart?</h3>
+					</section>
+					<section>
+						<h4>Marketing:</h4>
+						<h3 class="fragment">We are still ideating that, but maybe name one "before the middle" and the other "after the middle".</h3>
+						<h3 class="fragment">We'll have design do a Lorem Ipsum version.</h3>
+						<br/>
+						<h4 class="fragment">Engineering:</h4>
+						<h3 class="fragment">This seems like a bad idea.</h3>
+					</section>
+					<section>
+						<h4>Marketing:</h4>
+						<h3 class="fragment">We just need your buy-in<br/>on the technical feasibility.</h3>
+						<br/>
+						<h4 class="fragment">Engineering:</h4>
+						<h3 class="fragment">It's possible, but we<br/>advise strongly against it.</h3>
+					</section>
+					<section>
+						<h4>Product Owner:</h4>
+						<h3 class="fragment">Great! Let's move forward<br/>and get a fast win.</h3>
+						<h3 class="fragment">Also, zeroes tested poorly with users, we are changing them to 12s</h3>
+					</section>
+					<section>
+						<code>
+							&nbsp;&nbsp;&nbsp;&nbsp;0 &nbsp;1 &nbsp;2 &nbsp;3 &nbsp;4 &nbsp;5 &nbsp;6 &nbsp;7 &nbsp;8 &nbsp;9 10 11<br/>
+							&nbsp;&nbsp;&nbsp;12 13 14 15 16 17 18 19 20 21 22 23<br/>
+						</code>
+						<code class="fragment">
+							<br/>
+							AM 12 &nbsp;1 &nbsp;2 &nbsp;3 &nbsp;4 &nbsp;5 &nbsp;6 &nbsp;7 &nbsp;8 &nbsp;9 10 11<br/>
+							PM 12 &nbsp;1 &nbsp;2 &nbsp;3 &nbsp;4 &nbsp;5 &nbsp;6 &nbsp;7 &nbsp;8 &nbsp;9 10 11<br/>
+						</code>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>12 Hour Clock</h2>
+					</section>
+					<section>
+						<h3>Actual Origin</h3>
+					</section>
+					<section>
+						<img src="img/sundial.jpg" height="500" />
+					</section>
+					<section>
+						<h3>1 hour = (sundown - sunrise) / 12</h3>
+					</section>
+					<!-- <section> -->
+					<!-- 	<h2>Conclusion:</h2> -->
+					<!-- 	<p>24 Hour Clock: OK</p> -->
+					<!-- 	<p>12 Hour Clock: A Mess</p> -->
+					<!-- </section> -->
+				</section>
+
+				<section>
+					<section>
+						<h2>Minutes</h2>
+					</section>
+					<section>
+						<h2>Base 60</h2>
+						<code class="fragment">
+							1/2 hour = 30 minutes<br/>
+							1/3 hour = 20 minutes<br/>
+							1/4 hour = 15 minutes<br/>
+							1/5 hour = 12 minutes<br/>
+							1/6 hour = 10 minutes<br/>
+							1/10 hour = 6 minutes<br/>
+							1/12 hour = 5 minutes<br/>
+							1/15 hour = 4 minutes<br/>
+							1/20 hour = 3 minutes<br/>
+							1/30 hour = 2 minutes<br/>
+						</code>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Seconds</h2>
+						<p class="fragment">Slightly worse than minutes.</p>
+					</section>
+					<section>
+						<h2>Microwaves</h2>
+						<code class="fragment">0:99 = 1:39</code>
+						<br/>
+						<code class="fragment">1:00 = 1:00</code>
+						<br/>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Milliseconds</h2>
+						<p class="fragment">Base 10 is handy.</p>
+					</section>
+					<section>
+						<p><code id="milliseconds-a"></code></p>
+					</section>
+					<section>
+						<p><code id="milliseconds-b"></code></p>
+						<script>
+							setInterval(function () {
+									function r() { return Math.floor(Math.random() * 10); }
+									var a = document.getElementById("milliseconds-a");
+									var b = document.getElementById("milliseconds-b");
+									var rand = [r(), r(), r(), r(), r(), r()].join('');
+									function times (withhm) {
+									var now = moment();
+									var hm = now.format("HH:mm:")
+									var nowms = now.format("ss.SSS");
+									return [
+									nowms.substr(0, 4),
+									nowms.substr(0, 5),
+									nowms,
+									nowms + rand.substr(0, 1),
+									nowms + rand.substr(0, 2),
+									nowms + rand.substr(0, 3),
+									nowms + rand.substr(0, 4),
+									nowms + rand.substr(0, 5),
+									nowms + rand.substr(0, 6)
+									].map(function (line) {
+										var l = line.length;
+										while (l < 12) {
+										l++
+										line = line + '&nbsp;';
+										}
+										return line;
+										}).map(function(line){
+											if (withhm) {
+											return hm + line;
+											}
+											return line;
+											}).join('<br/>');
+									}
+									a.innerHTML = times(true);
+									b.innerHTML = times();
+							}, 60);
+						</script>
+					</section>
+					<!-- <section> -->
+					<!-- 	<h2>Conclusion:</h2> -->
+					<!-- 	<p>Minutes, Seconds, Milliseconds</p> -->
+					<!-- 	<p class="fragment">Not that bad</p> -->
+					<!-- </section> -->
+				</section>
+
+				<section>
+					<section>
+						<h2>A Group of Numbers</h2>
+						<code id="js-wrapup-group-of-numbers"></code>
+						<script>
+							setInterval(function(){
+									var numbers = document.getElementById("js-wrapup-group-of-numbers");
+									numbers.textContent = '[' + moment().format("YYYY, 9, D, H, m, s, SSS") + ']';
+									}, 60);
+						</script>
+					</section>
+					<section>
+						<h3>Except...</h3>
+					</section>
+					<section>
+						<img src="img/2000-glasses.jpg"/>
+					</section>
+					<section>
+						<code>
+							New York Jan &nbsp;1 2000 12AM<br/>
+							Portland Dec 31 1999 &nbsp;9PM
+						</code>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Offsets</h2>
+					</section>
+					<section>
+						<h3>The number of hours<br/>behind or ahead of GMT</h3>
+						<code>+01:00 -07:00</code>
+					</section>
+					<section>
+						<h3>There are also named offsets</h3>
+						<code>
+							PST = GMT-08:00
+							<br/>
+							PDT = GMT-07:00
+							<br/>
+							MST = GMT-07:00
+							<br/>
+							MDT = GMT-06:00
+							<br/>
+							CST = GMT-06:00
+							<br/>
+							CDT = GMT-05:00
+							<br/>
+							EST = GMT-05:00
+							<br/>
+							EDT = GMT-04:00&nbsp;
+						</code>
+					</section>
+					<section>
+						<h3>Maths time</h3>
+						<code class="fragment">19:00 GMT <br/>??:?? PDT </code>
+						<br/></br>
+						<code class="fragment">PDT = GMT-07:00 </code>
+						<br/></br>
+						<code class="fragment">PDT = 19:00-07:00</code>
+						<br/></br>
+						<code class="fragment">PDT = 12:00</code>
+					</section>
+					<!-- <section> -->
+					<!-- 	<h3>A Harder One</h3> -->
+					<!-- 	<code>19:00 EDT <br/>??:?? PDT </code> -->
+					<!-- 	<br/></br> -->
+					<!-- 	<code class="fragment">PDT = GMT-07:00 <br/>EDT = GMT-04:00 </code> -->
+					<!-- 	<br/></br> -->
+					<!-- 	<code class="fragment">EDT+04:00 = GMT</code> -->
+					<!-- 	<br/></br> -->
+					<!-- 	<code class="fragment">PDT = EDT+04:00-07:00</code> -->
+					<!-- 	<br/></br> -->
+					<!-- 	<code class="fragment">PDT = EDT-03:00</code> -->
+					<!-- 	<br/></br> -->
+					<!-- 	<code class="fragment">PDT = 19:00-03:00</code> -->
+					<!-- 	<br/></br> -->
+					<!-- 	<code class="fragment">PDT = 16:00</code> -->
+					<!-- </section> -->
+				</section>
+
+				<section>
+					<section>
+						<h2>Daylight Savings Time</h2>
+						<p>&nbsp;</p>
+					</section>
+					<section>
+						<h2>Daylight Saving<del style="color:red">s</del> Time</h2>
+						<p>Not its name</p>
+					</section>
+					<section>
+						<h2>Daylight Saving Time</h2>
+					</section>
+					<section>
+						<p>We move our clocks forward and backward.<br/><br/>Somehow everything still works.</p>
+						<br/>
+						<h3 class="fragment">How?</h3>
+					</section>
+					<section>
+						<img style="border:0;background:none;box-shadow:none;" src="img/tardis.png" />
+					</section>
+					<section>
+						<p>We are not changing time.<br/><br/>We are changing our offset.</p>
+					</section>
+					<section>
+						<h2>Spring Forward</h2>
+						<code>01:58 AM PST (GMT-08:00)</code><br/>
+						<code class="fragment">01:59 AM PST (GMT-08:00)</code><br/>
+						<code class="fragment">03:00 AM PDT (GMT-07:00)</code><br/>
+						<code class="fragment">03:01 AM PDT (GMT-07:00)</code>
+					</section>
+					<section>
+						<h2>Fall Back</h2>
+						<code>01:58 AM PDT (GMT-07:00)</code><br/>
+						<code class="fragment">01:59 AM PDT (GMT-07:00)</code><br/>
+						<code class="fragment">01:00 AM PST (GMT-08:00)</code><br/>
+						<code class="fragment">01:01 AM PST (GMT-08:00)</code>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Timezones</h2>
+					</section>
+					<section>
+						<h3>PDT is not our Timezone</h3>
+					</section>
+					<section>
+						<h3>Offsets</h3>
+						<code>+00:00 -07:00 +05:30</code>
+						<br/><br/>
+						<div class="fragment">
+							<h3>Named Offsets</h3>
+							<code>PST GMT AEST SAMST</code>
+						</div>
+						<br/>
+						<div class="fragment">
+							<h3>Timezones</h3>
+							<code>America/Los_Angeles Europe/London Pacific/Fiji</code>
+						</div>
+					</section>
+					<section>
+						<h3>A Timezone</h3>
+						<h4>A group of timestamps and offsets</h4>
+					</section>
+					<section>
+						<code>zdump -v America/Los_Angeles</code><br/><br/><br/>
+						<small><code class="fragment">
+								America/Los_Angeles  Sun Oct 27 09:00:00 1918 UTC = Sun Oct 27 01:00:00 1918 PST isdst=0<br/>
+								America/Los_Angeles  Sun Mar 30 09:59:59 1919 UTC = Sun Mar 30 01:59:59 1919 PST isdst=0<br/>
+								America/Los_Angeles  Sun Mar 30 10:00:00 1919 UTC = Sun Mar 30 03:00:00 1919 PDT isdst=1<br/>
+								America/Los_Angeles  Sun Oct 26 08:59:59 1919 UTC = Sun Oct 26 01:59:59 1919 PDT isdst=1<br/>
+								America/Los_Angeles  Sun Oct 26 09:00:00 1919 UTC = Sun Oct 26 01:00:00 1919 PST isdst=0<br/>
+								America/Los_Angeles  Mon Feb &nbsp;9 09:59:59 1942 UTC = Mon Feb &nbsp;9 01:59:59 1942 PST isdst=0<br/>
+								America/Los_Angeles  Mon Feb &nbsp;9 10:00:00 1942 UTC = Mon Feb &nbsp;9 03:00:00 1942 PWT isdst=1<br/>
+								America/Los_Angeles  Tue Aug 14 22:59:59 1945 UTC = Tue Aug 14 15:59:59 1945 PWT isdst=1<br/>
+								America/Los_Angeles  Tue Aug 14 23:00:00 1945 UTC = Tue Aug 14 16:00:00 1945 PPT isdst=1<br/>
+								America/Los_Angeles  Sun Sep 30 08:59:59 1945 UTC = Sun Sep 30 01:59:59 1945 PPT isdst=1<br/>
+								America/Los_Angeles  Sun Sep 30 09:00:00 1945 UTC = Sun Sep 30 01:00:00 1945 PST isdst=0<br/>
+								America/Los_Angeles  Sun Mar 14 09:59:59 1948 UTC = Sun Mar 14 01:59:59 1948 PST isdst=0<br/>
+								America/Los_Angeles  Sun Mar 14 10:00:00 1948 UTC = Sun Mar 14 03:00:00 1948 PDT isdst=1
+						</code></small>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Pro Tips</h2>
+					</section>
+					<section>
+						<h3>Use YYYY-MM-DD</h3>
+						<img class="fragment" src="img/xkcd.png" />
+						<p class="fragment">Alphabetical sorting == Chronological sorting</p>
+					</section>
+					<section>
+						<h3>Use a numeric offset</h3>
+						<code class="fragment" id="js-advice-numeric-offset"></code>
+						<script>setInterval(function(){
+							function sp(x){var o='';for(var i=0;i<x;i++){o+="&nbsp;"}return o;}
+							document.getElementById('js-advice-numeric-offset').innerHTML = [
+							moment.tz("America/Los_Angeles").format("YYYY-MM-DD HH:mm:ss") + sp(8) + "// unclear",
+							// moment.tz("America/Los_Angeles").format("YYYY-MM-DD HH:mm:ss z") + sp(5) + "// better",
+							moment.tz("America/Los_Angeles").format("YYYY-MM-DD HH:mm:ss Z") + " // clear" + sp(2)
+							].join('<br/>') + '<br/>';
+							},60)</script>
+					</section>
+					<section>
+						<h3>Move to Arizona</h3>
+						<p class="fragment">They don't observe Daylight Saving Time</p>
+					</section>
+				</section>
+
+				<section>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<h2>Questions?</h2>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<h4>Tim Wood</h4>
+					<p>
+						Twitter <a href="https://twitter.com/timtamiam">@timtamiam</a><br/>
+						Github  <a href="https://github.com/timrwood">@timrwood</a>
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transition: 'none',
+				dependencies: []
+			});
+		</script>
+	</body>
+</html>

@@ -3,5 +3,5 @@ description: These are things I made.
 twitter: timtamiam
 github: timrwood
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 permalink: /:categories/:title/

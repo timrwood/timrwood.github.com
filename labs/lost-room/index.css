@@ -1,21 +1,14 @@
 html {
-  background: #002B36;
-  font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
+  background: #ffffff;
+  font-family: 'Bitstream Vera Sans Mono', Consolas, Courier, monospace;
 }
 
 a {
   position: fixed;
   bottom: 1em;
   left: 1em;
-  color: #586E75;
+  color: #186279;
   font-size: 60%;
-}
-
-#stage {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  overflow: hidden;
 }
 
 #words {
@@ -24,55 +17,40 @@ a {
   left: 0;
   right: 0;
   overflow: hidden;
-  padding-top: 1.5em;
   line-height: 1.5em;
   font-weight: normal;
-  color: #FBF4E1;
+  color: #596aa1;
   text-align: center;
   display: block;
   white-space: pre;
 }
 
-i {
-  line-height: 1.5em;
-  height: 1.5em;
-  width: 1.5em;
-  float: left;
-  text-align: center;
+#debug {
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-weight: normal;
+  color: #fbf4e1;
   display: block;
-  background: #FBF4E1;
-  font-style: normal;
+  white-space: pre;
 }
 
-.c-door, .c-wall, .c-counter {
-  background: #002B36;
+img,
+canvas {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
-.c-key, .c-door {
-  color: #859900;
+canvas {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.c-wall {
-  color: #002B36;
-}
-
-.c-enemy {
-  color: #DC322F;
-}
-
-.c-hero, .c-exit {
-  color: #268BD2;
-}
-
-.c-portal {
-  color: #B58900;
-  font-weight: bold;
-}
-
-.c-laser {
-  color: #DC322F;
-}
-
-.c-counter {
-  color: #FDF6E3;
+img {
+  display: none;
 }

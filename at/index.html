@@ -1,0 +1,11 @@
+---
+layout: default
+title: Tim Wood works at
+body_class: page-home
+---
+
+{% for location in site.locations %}
+  <a href="{{ location.url }}" class="Link-at">
+    <em>at</em> <stron>{{ location.title }}</strong>
+  </a>
+{% endfor %}

@@ -5,3 +5,7 @@ github: timrwood
 markdown: kramdown
 highlighter: rouge
 permalink: /:categories/:title/
+collections:
+  locations:
+    output: true
+    permalink: /at/:title

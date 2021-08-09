@@ -1,27 +1,47 @@
-body {
-  font-size: 115%;
-}
+@mixin modular-scale($ratio) {
+  h5,
+  h6 {
+    font-size: 1rem;
+  }
 
-body, caption, th, td, input, textarea, select, option, legend, fieldset, h1, h2, h3, h4, h5, h6 {
-  font-size-adjust: 0.5;
-}
+  h4 {
+    font-size: 1rem * $ratio;
+  }
 
-@mixin modular-scale ($ratio) {
-    h5, h6         { font-size: 1em; }
-    h4             { font-size: 1em * $ratio; }
-    blockquote, h3 { font-size: 1em * $ratio * $ratio; }
-    h2             { font-size: 1em * $ratio * $ratio * $ratio; }
-    h1             { font-size: 1em * $ratio * $ratio * $ratio * $ratio; }
-    body, h4, h5, h6, blockquote { line-height: 1.4; }
-    h1, h2, h3 { line-height: 1.2; }
+  blockquote,
+  h3 {
+    font-size: 1rem * $ratio * $ratio;
+  }
+
+  h2 {
+    font-size: 1rem * $ratio * $ratio * $ratio;
+  }
+
+  h1 {
+    font-size: 1rem * $ratio * $ratio * $ratio * $ratio;
+  }
+
+  body,
+  h4,
+  h5,
+  h6,
+  blockquote {
+    line-height: 1.4;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.2;
+  }
 }
 
 @include modular-scale(1.1);
 
-@media (min-width: 44em) {
-    @include modular-scale(1.15);
+@media (min-width: 44rem) {
+  @include modular-scale(1.15);
 }
 
-@media (min-width: 56em) {
-    @include modular-scale(1.2);
+@media (min-width: 56rem) {
+  @include modular-scale(1.2);
 }

@@ -11,7 +11,7 @@ body_class: page-post
 <div class="post">{{ content }}</div>
 
 {% if page.previous %}
-    <a class="next" href="{{ page.previous.url}}" style="background-image:url({{ page.previous.image }});{%if page.previous.bg_size %}background-size:{{page.previous.bg_size}}{% endif %}">
-        <h3>Next Project: {{ page.previous.title }}</h3>
-    </a>
+  <a class="next" href="{{ page.previous.url}}" style="background-image:url({{ page.previous.image }});{%if page.previous.bg_size %}background-size:{{page.previous.bg_size}}{% endif %}">
+    <h3>Next Project: {{ page.previous.title }}</h3>
+  </a>
 {% endif %}

@@ -1,0 +1,25 @@
+.Home {
+  display: block;
+  text-decoration: none;
+  color: $grey1;
+
+  em {
+    color: $grey5;
+    display: block;
+    font-variation-settings: 'wght' 100;
+  }
+}
+
+.Nav {
+  text-align: right;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 6rem;
+
+  a {
+    display: block;
+    color: $grey2;
+    // padding: 0.125rem 0.5rem;
+  }
+}

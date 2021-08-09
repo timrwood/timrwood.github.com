@@ -1,48 +1,10 @@
 ---
 ---
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    height: 100%;
-}
-
-body {
-    background-color: #FFF;
-    font: 18px 'Open Sans', sans-serif;
-    font-size: small;
-    text-align: center;
-}
-
-h1, h2, h3, h4, h5, h6, p { margin: 1em 0; }
-
-a         { color: #03c; }
-a:hover   { color: #000; }
-
-hr {
-    border: 0;
-    border-top: 1px dashed #aaa;
-    display: block;
-    margin: 2em 0;
-}
-
-.site {
-    height: 100%;
-    text-align: left;
-    line-height: 1.5em;
-}
-
-.content {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 20px 60px;
-}
-
-@import "type";
-@import "header";
-@import "footer";
-@import "posts";
-
+@import 'reset';
+@import 'color';
+@import 'type';
+@import 'nav';
+@import 'footer';
+@import 'posts';
+@import 'layout';
